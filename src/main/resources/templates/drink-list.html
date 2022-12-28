@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Меню піцерії: Напої</title>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/6721/6721251.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Pizza King</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/main-page">Головна</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Меню
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/pizzas">Піца</a></li>
+                        <li><a class="dropdown-item" href="/drinks">Напої</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Користувацький інтерфейс</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/drinks-adm">Адмін-панель</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/backet"><img src="https://cdn-icons-png.flaticon.com/512/8459/8459177.png" style="width: 20px">
+                        Перейти до кошика</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Пошук..." aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Пошук</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<hr>
+<div th:switch="${drinks}">
+    <h2 th:case="null">Напоїв не знайдено!</h2>
+    <div th:case="*">
+        <h2 class="mt-2" style="text-align: center">Меню піцерії «Pizza King»</h2>
+        <hr>
+        <h3 class="mt-2" style="text-align: center">Напої</h3>
+        <table class="table table-hover" style="width: 1000px; margin: auto; vertical-align: middle">
+            <thead>
+            <th></th>
+            <th>Назва
+                <a href="/sort-drink-by-name"><img src="https://cdn-icons-png.flaticon.com/512/2223/2223723.png" width="20px"></a></th>
+            <th>Опис</th>
+            <th style="width: 90px">Об‘єм
+                <a href="/sort-drink-by-volume"><img src="https://cdn-icons-png.flaticon.com/512/2223/2223723.png" width="20px"></a></th></th>
+            <th style="width: 80px">Ціна
+                <a href="/sort-drink-by-price"><img src="https://cdn-icons-png.flaticon.com/512/2223/2223723.png" width="20px"></a></th></th>
+            <th style="width: 150px"></th>
+            </thead>
+            <tbody>
+            <tr th:each="drink : ${drinks}">
+                <td><img th:src="${drink.url}" style="width: 100px"></td>
+                <td th:text="${drink.name}"></td>
+                <td th:text="${drink.description}"></td>
+                <td>
+                    <span th:text="${drink.volume}"></span>
+                    <span> мл</span>
+                </td>
+                <td>
+                    <span th:text="${drink.price}"></span>
+                    <span> ₴</span>
+                </td>
+                <td><div style="text-align: center;"><a class="btn btn-warning" style="padding: 3px 22px" href="/add" role="button">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5412/5412593.png" width="20px"> Додати до кошика</a></div></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
