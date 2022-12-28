@@ -109,10 +109,27 @@ public class PizzeriaController {
         return "redirect:/pizzas-adm";
     }
 
+    @GetMapping("/drink-create")
+    public String createDrinkForm(Drink drink) {
+        return "drink-create";
+    }
+
+    @PostMapping("/drink-create")
+    public String createDrink(Drink drink) {
+        drinkService.saveDrink(drink);
+        return "redirect:/drinks-adm";
+    }
+
     @GetMapping("/pizza-delete/{id}")
     public String deletePizza(@PathVariable("id") Integer id) {
         pizzaService.deletePizza(id);
         return "redirect:/pizzas-adm";
+    }
+
+    @GetMapping("/drink-delete/{id}")
+    public String deleteDrink(@PathVariable("id") Integer id) {
+        drinkService.deleteDrink(id);
+        return "redirect:/drinks-adm";
     }
 
     @GetMapping("/pizza-update/{id}")
@@ -126,5 +143,18 @@ public class PizzeriaController {
     public String updatePizza(Pizza pizza) {
         pizzaService.savePizza(pizza);
         return "redirect:/pizzas-adm";
+    }
+
+    @GetMapping("/drink-update/{id}")
+    public String updateDrinkForm(@PathVariable("id") Integer id, Model model) {
+        Drink drink = drinkService.findById(id);
+        model.addAttribute("drink", drink);
+        return "/drink-update";
+    }
+
+    @PostMapping("/drink-update")
+    public String updateDrink(Drink drink) {
+        drinkService.saveDrink(drink);
+        return "redirect:/drinks-adm";
     }
 }

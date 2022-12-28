@@ -36,9 +36,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        top: 40%;
-        transform: translateY(20%);">
-    <form style="width: 300px" action="#" th:action="@{/drink-create}" th:object="${drink}" method="post">
+        top: 20%;
+        transform: translateY(10%);">
+    <form style="width: 300px" action="#" th:action="@{/drink-update}" th:object="${drink}" method="post">
+        <div>
+            <label for="id">ID</label>
+            <input readonly type="number" class="form-control" th:field="*{id}" id="id" placeholder="Id">
+        </div>
         <div>
             <label for="name" class="form-label">Назва</label>
             <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Назва">
@@ -61,7 +65,7 @@
         </div>
         <br>
         <div>
-            <input type="submit" class="btn btn-success" value="Додати">
+            <input type="submit" class="btn btn-success" value="Змінити">
         </div>
     </form>
 </div>
