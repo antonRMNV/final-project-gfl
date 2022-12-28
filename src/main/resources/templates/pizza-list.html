@@ -79,7 +79,7 @@
                     <span th:text="${pizza.price}"></span>
                     <span> ₴</span>
                 </td>
-                <td><div style="text-align: center;"><a class="btn btn-warning" style="padding: 3px 22px" href="/add" role="button">
+                <td><div style="text-align: center;"><a class="btn btn-warning" style="padding: 3px 22px" th:href="@{add-pizza-in-basket/{id}(id=${pizza.id})}" role="button" onclick="confirm('Товар додано до кошику!');">
                     <img src="https://cdn-icons-png.flaticon.com/512/5412/5412593.png" width="20px"> Додати до кошика</a></div></td>
             </tr>
             </tbody>

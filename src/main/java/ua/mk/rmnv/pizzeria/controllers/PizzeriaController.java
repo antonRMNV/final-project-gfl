@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import ua.mk.rmnv.pizzeria.entities.Basket;
 import ua.mk.rmnv.pizzeria.entities.Drink;
 import ua.mk.rmnv.pizzeria.entities.Pizza;
+import ua.mk.rmnv.pizzeria.repositories.BasketRepository;
 import ua.mk.rmnv.pizzeria.servives.DrinkService;
 import ua.mk.rmnv.pizzeria.servives.PizzaService;
 
@@ -20,6 +22,13 @@ public class PizzeriaController {
 
     private final PizzaService pizzaService;
     private final DrinkService drinkService;
+    private final BasketRepository basketRepository;
+
+    @GetMapping("/")
+    public String mainPage() {
+        basketRepository.deleteAll();
+        return "index";
+    }
 
     @GetMapping("/pizzas")
     public String viewPizzaList(Model model) {
@@ -156,5 +165,16 @@ public class PizzeriaController {
     public String updateDrink(Drink drink) {
         drinkService.saveDrink(drink);
         return "redirect:/drinks-adm";
+    }
+
+    @GetMapping("/add-pizza-in-basket/{id}")
+    public String addPizzaInBasketForm(@PathVariable("id") Integer id) {
+        Basket basket = new Basket();
+        Pizza pizza = pizzaService.findById(id);
+        basket.setProductId(pizza.getId());
+        basket.setProductType("Піца");
+        basket.setProductPrice(pizza.getPrice());
+        basketRepository.save(basket);
+        return "redirect:/pizzas";
     }
 }
