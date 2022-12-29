@@ -1,11 +1,13 @@
 package ua.mk.rmnv.pizzeria.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.mk.rmnv.pizzeria.entities.Basket;
 import ua.mk.rmnv.pizzeria.entities.Drink;
 import ua.mk.rmnv.pizzeria.entities.Pizza;
@@ -176,5 +178,13 @@ public class PizzeriaController {
         basket.setProductPrice(pizza.getPrice());
         basketRepository.save(basket);
         return "redirect:/pizzas";
+    }
+
+    @PostMapping("/filtered-pizzas")
+    public String searchPizzaByName(Model model, @RequestParam("keyword") String keyword) {
+        List<Pizza> pizzas = pizzaService.findByName(keyword);
+        model.addAttribute("pizzas", pizzas);
+        model.addAttribute("keyword", keyword);
+        return "pizza-list";
     }
 }

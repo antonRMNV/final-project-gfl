@@ -46,4 +46,11 @@ public class PizzaService {
         pizzaList.sort(Comparator.comparing(Pizza::getPrice));
         return pizzaList;
     }
+
+    public List<Pizza> findByName(String keyword) {
+        if(keyword != null) {
+            return pizzaRepository.searchByName(keyword);
+        }
+        return pizzaRepository.findAll();
+    }
 }

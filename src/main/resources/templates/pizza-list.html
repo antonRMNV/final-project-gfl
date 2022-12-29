@@ -40,9 +40,9 @@
                         Перейти до кошика</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Пошук..." aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Пошук</button>
+            <form class="d-flex" method="post" action="/filtered-pizzas">
+                <input class="form-control me-2" style="width: 300px" type="text" placeholder="Введіть назву або компоненти..." name="keyword" id="keyword">
+                <button class="btn btn-outline-success" type="submit" th:href="@{/filtered-pizzas}">Пошук</button>
             </form>
         </div>
     </div>
@@ -79,7 +79,7 @@
                     <span th:text="${pizza.price}"></span>
                     <span> ₴</span>
                 </td>
-                <td><div style="text-align: center;"><a class="btn btn-warning" style="padding: 3px 22px" th:href="@{add-pizza-in-basket/{id}(id=${pizza.id})}" role="button" onclick="confirm('Товар додано до кошику!');">
+                <td><div style="text-align: center;"><a class="btn btn-warning" style="padding: 3px 22px" th:href="@{add-pizza-in-basket/{id}(id=${pizza.id})}" role="button" onclick="alert('Товар додано до кошику!');">
                     <img src="https://cdn-icons-png.flaticon.com/512/5412/5412593.png" width="20px"> Додати до кошика</a></div></td>
             </tr>
             </tbody>
