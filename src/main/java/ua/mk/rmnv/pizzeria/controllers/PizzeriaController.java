@@ -16,6 +16,7 @@ import ua.mk.rmnv.pizzeria.servives.BasketService;
 import ua.mk.rmnv.pizzeria.servives.DrinkService;
 import ua.mk.rmnv.pizzeria.servives.PizzaService;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
@@ -248,6 +249,7 @@ public class PizzeriaController {
         List<Basket> baskets = basketService.findAll();
         for(Basket b : baskets) {
             OrdersArchive ordersArchive = new OrdersArchive();
+            ordersArchive.setOrderTime(String.valueOf(LocalDateTime.now()));
             ordersArchive.setProductName(b.getProductName());
             ordersArchive.setCustomerName(customerName);
             ordersArchive.setCustomerSurname(customerSurname);
