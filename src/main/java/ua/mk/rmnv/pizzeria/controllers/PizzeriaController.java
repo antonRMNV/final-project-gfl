@@ -173,7 +173,8 @@ public class PizzeriaController {
         Basket basket = new Basket();
         Pizza pizza = pizzaService.findById(id);
         basket.setProductId(pizza.getId());
-        basket.setProductType("Піца");
+        basket.setProductName(pizza.getName());
+        basket.setProductUrl(pizza.getUrl());
         basket.setProductPrice(pizza.getPrice());
         basketRepository.save(basket);
         return "redirect:/pizzas";
@@ -184,7 +185,8 @@ public class PizzeriaController {
         Basket basket = new Basket();
         Drink drink = drinkService.findById(id);
         basket.setProductId(drink.getId());
-        basket.setProductType("Напій");
+        basket.setProductName(drink.getName());
+        basket.setProductUrl(drink.getUrl());
         basket.setProductPrice(drink.getPrice());
         basketRepository.save(basket);
         return "redirect:/drinks";
@@ -210,5 +212,13 @@ public class PizzeriaController {
             return "redirect:/drinks";
         }
         return "drink-list";
+    }
+
+    @GetMapping("/basket-list")
+    public String basketPage(Model model) {
+        List<Basket> baskets = basketRepository.findAll();
+        baskets.sort(Comparator.comparing(Basket::getProductName));
+        model.addAttribute("baskets", baskets);
+        return "basket";
     }
 }

@@ -15,11 +15,14 @@ public class Basket {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "productType", nullable = false, length = 20)
-    private String productType;
-
     @Column(name = "productId", nullable = false)
     private Integer productId;
+
+    @Column(name = "productUrl", nullable = false)
+    private String productUrl;
+
+    @Column(name = "productName", nullable = false)
+    private String productName;
 
     @Column(name = "productPrice", nullable = false)
     private Integer productPrice;
@@ -30,14 +33,6 @@ public class Basket {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getProductType() {
-        return productType;
-    }
-
-    public void setProductType(String productType) {
-        this.productType = productType;
     }
 
     public Integer getProductId() {
@@ -54,5 +49,21 @@ public class Basket {
 
     public void setProductPrice(Integer productPrice) {
         this.productPrice = productPrice;
+    }
+
+    public String getProductUrl() {
+        return productUrl;
+    }
+
+    public void setProductUrl(String productUrl) {
+        this.productUrl = productUrl;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }
