@@ -11,5 +11,5 @@ import java.util.List;
 public interface PizzaRepository extends JpaRepository<Pizza, Integer> {
 
     @Query("SELECT p FROM Pizza p WHERE p.name LIKE %?1% OR p.components LIKE %?1%")
-    List<Pizza> searchByName(String keyword);
+    List<Pizza> searchByNameOrComponents(String keyword);
 }

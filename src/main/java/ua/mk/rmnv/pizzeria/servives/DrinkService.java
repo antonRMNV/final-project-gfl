@@ -3,6 +3,7 @@ package ua.mk.rmnv.pizzeria.servives;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ua.mk.rmnv.pizzeria.entities.Drink;
+import ua.mk.rmnv.pizzeria.entities.Pizza;
 import ua.mk.rmnv.pizzeria.repositories.DrinkRepository;
 
 import java.util.Comparator;
@@ -46,5 +47,12 @@ public class DrinkService {
         List<Drink> drinkList = drinkRepository.findAll();
         drinkList.sort(Comparator.comparing(Drink::getPrice));
         return drinkList;
+    }
+
+    public List<Drink> findByNameOrDescription(String keyword) {
+        if(keyword != null) {
+            return drinkRepository.searchByNameOrDescription(keyword);
+        }
+        return drinkRepository.findAll();
     }
 }

@@ -1,7 +1,6 @@
 package ua.mk.rmnv.pizzeria.controllers;
 
 import lombok.AllArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -170,7 +169,7 @@ public class PizzeriaController {
     }
 
     @GetMapping("/add-pizza-in-basket/{id}")
-    public String addPizzaInBasketForm(@PathVariable("id") Integer id) {
+    public String addPizzaInBasket(@PathVariable("id") Integer id) {
         Basket basket = new Basket();
         Pizza pizza = pizzaService.findById(id);
         basket.setProductId(pizza.getId());
@@ -180,11 +179,30 @@ public class PizzeriaController {
         return "redirect:/pizzas";
     }
 
+    @GetMapping("/add-drink-in-basket/{id}")
+    public String addDrinkInBasket(@PathVariable("id") Integer id) {
+        Basket basket = new Basket();
+        Drink drink = drinkService.findById(id);
+        basket.setProductId(drink.getId());
+        basket.setProductType("Напій");
+        basket.setProductPrice(drink.getPrice());
+        basketRepository.save(basket);
+        return "redirect:/drinks";
+    }
+
     @PostMapping("/filtered-pizzas")
-    public String searchPizzaByName(Model model, @RequestParam("keyword") String keyword) {
-        List<Pizza> pizzas = pizzaService.findByName(keyword);
+    public String searchPizzaByNameOrComponents(Model model, @RequestParam("keyword") String keyword) {
+        List<Pizza> pizzas = pizzaService.findByNameOrComponents(keyword);
         model.addAttribute("pizzas", pizzas);
         model.addAttribute("keyword", keyword);
         return "pizza-list";
+    }
+
+    @PostMapping("/filtered-drinks")
+    public String searchDrinkByNameOrDescription(Model model, @RequestParam("keyword") String keyword) {
+        List<Drink> drinks = drinkService.findByNameOrDescription(keyword);
+        model.addAttribute("drinks", drinks);
+        model.addAttribute("keyword", keyword);
+        return "drink-list";
     }
 }

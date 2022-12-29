@@ -47,9 +47,9 @@ public class PizzaService {
         return pizzaList;
     }
 
-    public List<Pizza> findByName(String keyword) {
+    public List<Pizza> findByNameOrComponents(String keyword) {
         if(keyword != null) {
-            return pizzaRepository.searchByName(keyword);
+            return pizzaRepository.searchByNameOrComponents(keyword);
         }
         return pizzaRepository.findAll();
     }

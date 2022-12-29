@@ -40,9 +40,9 @@
                         Перейти до кошика</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Пошук..." aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Пошук</button>
+            <form class="d-flex" method="post" action="/filtered-drinks">
+                <input class="form-control me-2" style="width: 300px" type="text" placeholder="Введіть назву або опис..." name="keyword" id="keyword">
+                <button class="btn btn-outline-success" type="submit" th:href="@{/filtered-drinks}">Пошук</button>
             </form>
         </div>
     </div>
@@ -79,7 +79,7 @@
                     <span th:text="${drink.price}"></span>
                     <span> ₴</span>
                 </td>
-                <td><div style="text-align: center;"><a class="btn btn-warning" style="padding: 3px 22px" th:href="@{add-drink-in-basket/{id}(id=${drink.id})}" role="button">
+                <td><div style="text-align: center;"><a class="btn btn-warning" style="padding: 3px 22px" th:href="@{add-drink-in-basket/{id}(id=${drink.id})}" role="button" onclick="alert('Напій додано до кошику!');">
                     <img src="https://cdn-icons-png.flaticon.com/512/5412/5412593.png" width="20px"> Додати до кошика</a></div></td>
             </tr>
             </tbody>
