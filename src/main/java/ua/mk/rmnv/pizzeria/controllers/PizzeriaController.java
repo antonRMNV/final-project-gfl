@@ -11,6 +11,7 @@ import ua.mk.rmnv.pizzeria.entities.Basket;
 import ua.mk.rmnv.pizzeria.entities.Drink;
 import ua.mk.rmnv.pizzeria.entities.Pizza;
 import ua.mk.rmnv.pizzeria.repositories.BasketRepository;
+import ua.mk.rmnv.pizzeria.servives.BasketService;
 import ua.mk.rmnv.pizzeria.servives.DrinkService;
 import ua.mk.rmnv.pizzeria.servives.PizzaService;
 
@@ -23,11 +24,11 @@ public class PizzeriaController {
 
     private final PizzaService pizzaService;
     private final DrinkService drinkService;
-    private final BasketRepository basketRepository;
+    private final BasketService basketService;
 
     @GetMapping("/")
     public String mainPage() {
-        basketRepository.deleteAll();
+        basketService.deleteAll();
         return "index";
     }
 
@@ -176,7 +177,7 @@ public class PizzeriaController {
         basket.setProductName(pizza.getName());
         basket.setProductUrl(pizza.getUrl());
         basket.setProductPrice(pizza.getPrice());
-        basketRepository.save(basket);
+        basketService.saveBasket(basket);
         return "redirect:/pizzas";
     }
 
@@ -188,7 +189,7 @@ public class PizzeriaController {
         basket.setProductName(drink.getName());
         basket.setProductUrl(drink.getUrl());
         basket.setProductPrice(drink.getPrice());
-        basketRepository.save(basket);
+        basketService.saveBasket(basket);
         return "redirect:/drinks";
     }
 
@@ -216,7 +217,7 @@ public class PizzeriaController {
 
     @GetMapping("/basket-list")
     public String basketPage(Model model) {
-        List<Basket> baskets = basketRepository.findAll();
+        List<Basket> baskets = basketService.findAll();
         baskets.sort(Comparator.comparing(Basket::getProductName));
         int orderSum = 0;
         for(Basket b : baskets) {
@@ -225,5 +226,11 @@ public class PizzeriaController {
         model.addAttribute("baskets", baskets);
         model.addAttribute("orderSum", orderSum);
         return "basket";
+    }
+
+    @GetMapping("/delete-from-basket/{id}")
+    public String deleteOrderFromBasket(@PathVariable("id") Integer id) {
+        basketService.deleteBasket(id);
+        return "redirect:/basket-list";
     }
 }
