@@ -37,7 +37,7 @@
 <div th:switch="${baskets}">
     <h2 th:case="null">Замовлень не знайдено!</h2>
     <div th:case="*">
-        <h2 class="mt-2" style="text-align: center">Кошик замовлення</h2>
+        <h2 class="mt-2" style="text-align: center">Ваше замовлення:</h2>
         <hr>
         <table class="table table-hover" style="width: 450px; margin: auto; vertical-align: middle">
             <thead>
@@ -54,10 +54,17 @@
                     <span th:text="${basket.productPrice}"></span>
                     <span> ₴</span>
                 </td>
-                <td><a style="padding: 1px 22px" th:href="@{basket-delete/{id}(id=${basket.id})}" role="button"><img src="https://cdn-icons-png.flaticon.com/512/4225/4225690.png" style="width: 30px;"></a></td>
+                <td><a style="padding: 1px 22px" th:href="@{delete-from-basket/{id}(id=${basket.id})}" role="button"><img src="https://cdn-icons-png.flaticon.com/512/4225/4225690.png" style="width: 30px;"></a></td>
             </tr>
             </tbody>
         </table>
+        <div style="margin-left: 700px">
+                <span class="fs-4">Сума: </span>
+                <span class="fs-4" th:utext="${orderSum}"></span>
+                <span class="fs-4"> ₴</span>
+        </div>
+        <hr>
+        <div style="text-align: center;"><a class="btn btn-warning" style="padding: 6px 15px" href="/checkout" role="button">Оформити замовлення</a></div>
     </div>
 </div>
 

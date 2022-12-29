@@ -218,7 +218,12 @@ public class PizzeriaController {
     public String basketPage(Model model) {
         List<Basket> baskets = basketRepository.findAll();
         baskets.sort(Comparator.comparing(Basket::getProductName));
+        int orderSum = 0;
+        for(Basket b : baskets) {
+            orderSum += b.getProductPrice();
+        }
         model.addAttribute("baskets", baskets);
+        model.addAttribute("orderSum", orderSum);
         return "basket";
     }
 }
