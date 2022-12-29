@@ -195,6 +195,9 @@ public class PizzeriaController {
         List<Pizza> pizzas = pizzaService.findByNameOrComponents(keyword);
         model.addAttribute("pizzas", pizzas);
         model.addAttribute("keyword", keyword);
+        if(keyword.isEmpty()) {
+            return "redirect:/pizzas";
+        }
         return "pizza-list";
     }
 
@@ -203,6 +206,9 @@ public class PizzeriaController {
         List<Drink> drinks = drinkService.findByNameOrDescription(keyword);
         model.addAttribute("drinks", drinks);
         model.addAttribute("keyword", keyword);
+        if(keyword.isEmpty()) {
+            return "redirect:/drinks";
+        }
         return "drink-list";
     }
 }
