@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.mk.rmnv.pizzeria.entities.Basket;
 import ua.mk.rmnv.pizzeria.entities.Drink;
+import ua.mk.rmnv.pizzeria.entities.OrdersArchive;
 import ua.mk.rmnv.pizzeria.entities.Pizza;
-import ua.mk.rmnv.pizzeria.repositories.BasketRepository;
+import ua.mk.rmnv.pizzeria.repositories.OrdersArchiveRepository;
 import ua.mk.rmnv.pizzeria.servives.BasketService;
 import ua.mk.rmnv.pizzeria.servives.DrinkService;
 import ua.mk.rmnv.pizzeria.servives.PizzaService;
@@ -25,6 +26,8 @@ public class PizzeriaController {
     private final PizzaService pizzaService;
     private final DrinkService drinkService;
     private final BasketService basketService;
+
+    private final OrdersArchiveRepository ordersArchiveRepository;
 
     @GetMapping("/")
     public String mainPage() {
@@ -232,5 +235,27 @@ public class PizzeriaController {
     public String deleteOrderFromBasket(@PathVariable("id") Integer id) {
         basketService.deleteBasket(id);
         return "redirect:/basket-list";
+    }
+
+    @GetMapping("/checkout-page")
+    public String checkoutPageForm() {
+        return "checkout";
+    }
+
+    @PostMapping("/save-order")
+    public String checkoutPage(@RequestParam String customerName, @RequestParam String customerSurname,
+                               @RequestParam String customerPhonenumber, @RequestParam String customerAddress) {
+        List<Basket> baskets = basketService.findAll();
+        for(Basket b : baskets) {
+            OrdersArchive ordersArchive = new OrdersArchive();
+            ordersArchive.setProductName(b.getProductName());
+            ordersArchive.setCustomerName(customerName);
+            ordersArchive.setCustomerSurname(customerSurname);
+            ordersArchive.setCustomerPhonenumber(customerPhonenumber);
+            ordersArchive.setCustomerAddress(customerAddress);
+            ordersArchiveRepository.save(ordersArchive);
+        }
+        basketService.deleteAll();
+        return "redirect:/main-page";
     }
 }
