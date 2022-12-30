@@ -21,6 +21,9 @@ public class OrdersArchive {
     @Column(name = "productName", nullable = false, length = 100)
     private String productName;
 
+    @Column(name = "productPrice", nullable = false)
+    private Integer productPrice;
+
     @Column(name = "customerName", nullable = false, length = 50)
     private String customerName;
 
@@ -87,6 +90,14 @@ public class OrdersArchive {
 
     public void setOrderTime(String orderTime) {
         this.orderTime = orderTime;
+    }
+
+    public Integer getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(Integer productPrice) {
+        this.productPrice = productPrice;
     }
 }
 

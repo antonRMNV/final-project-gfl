@@ -251,6 +251,7 @@ public class PizzeriaController {
             OrdersArchive ordersArchive = new OrdersArchive();
             ordersArchive.setOrderTime(String.valueOf(LocalDateTime.now()));
             ordersArchive.setProductName(b.getProductName());
+            ordersArchive.setProductPrice(b.getProductPrice());
             ordersArchive.setCustomerName(customerName);
             ordersArchive.setCustomerSurname(customerSurname);
             ordersArchive.setCustomerPhonenumber(customerPhonenumber);

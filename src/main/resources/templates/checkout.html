@@ -52,7 +52,7 @@
             <label for="customerAddress" class="form-label">Введіть адресу для доставки</label>
             <input type="text" class="form-control" id="customerAddress" name="customerAddress" placeholder="Адреса для доставки" required>
 
-            <input type="submit" style="margin-top: 3%" class="btn btn-warning" th:href="@{/save-order}" value="Підтвердити замовлення">
+            <input type="submit" style="margin-top: 3%" class="btn btn-warning" th:href="@{/save-order}" value="Підтвердити замовлення" onclick="alert('Замовлення прийнято. Протягом 5 хвилин очікуйте дзвінок від оператора «Pizza King» для підтвердження замовлення.');">
         </form>
     </div>
 </div>
